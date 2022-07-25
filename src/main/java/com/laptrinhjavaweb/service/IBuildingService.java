@@ -2,8 +2,8 @@ package com.laptrinhjavaweb.service;
 
 import com.laptrinhjavaweb.dto.request.BuildingRequestDTO;
 import com.laptrinhjavaweb.dto.request.BuildingSearchDTO;
-import com.laptrinhjavaweb.dto.response.BuildingManagerResponseDTO;
 import com.laptrinhjavaweb.dto.response.BuildingResponseDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,6 @@ public interface IBuildingService {
     void deleteBuilding(long[] id);
     BuildingResponseDTO findBuildingById(long id);
     void assignmentBuildingForStaffs(long buildingId, List<Long> staffIds);
-
+    List<BuildingResponseDTO> getBuilding(String reseachValue, Pageable pageable);
 
 }

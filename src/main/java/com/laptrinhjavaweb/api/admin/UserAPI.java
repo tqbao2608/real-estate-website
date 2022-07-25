@@ -9,6 +9,10 @@ import com.laptrinhjavaweb.service.IUserService;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +21,15 @@ public class UserAPI {
 
     private Logger LOGGER = Logger.getLogger(UserAPI.class);
 
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+//
+
+
     @Autowired
     private IUserService userService;
+
+
 
     @PostMapping
     public ResponseEntity<UserDTO> createUsers(@RequestBody UserDTO newUser) {
@@ -59,4 +70,15 @@ public class UserAPI {
         }
         return ResponseEntity.noContent().build();
     }
+
+//    @PostMapping("/authentication")
+//    public ResponseEntity<?> register(@RequestBody UserDTO userDTO ){
+//        final Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(userDTO.getUserName()
+//                        ,userDTO.getPassword())
+//        );
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        final String token ;
+//    }
 }

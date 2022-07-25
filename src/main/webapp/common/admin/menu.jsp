@@ -1,3 +1,4 @@
+<%@ page import="com.laptrinhjavaweb.constant.SystemConstant" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,11 +42,23 @@
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
+            <c:if test="<%=SecurityUtils.getAuthorities().contains(SystemConstant.ADMIN_ROLE)%>">
+                <ul class="submenu">
+                    <li class="">
+                        <a href='<c:url value='/admin/user-list'/>'>
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            DS tài khoản
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </c:if>
+            <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href='<c:url value='/admin/user-list'/>'>
+                    <a href='<c:url value='/admin/building-list'/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
-                        DS tài khoản
+                        DS Tòa Nhà
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -53,9 +66,9 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href='<c:url value='/admin/building-list'/>'>
+                    <a href='<c:url value='/admin/customer'/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
-                        DS Tòa Nhà
+                        DS Khách Hàng
                     </a>
                     <b class="arrow"></b>
                 </li>

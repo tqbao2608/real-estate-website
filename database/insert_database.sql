@@ -39,6 +39,14 @@ INSERT INTO `springbootweb122021`.`building`
 VALUES ('QUAN_4', '200', 'IDD 1 Building', '1', '12',
         '12 triệu/m2', '111 Lý Chính Thắng', 'TANG_TRET, NGUYEN_CAN, NOI_THAT', 'Phường 7');
 
+INSERT INTO `springbootweb122021`.`rentarea` (`value`, `buildingid`) VALUES ('100', '1');
+INSERT INTO `springbootweb122021`.`rentarea` (`value`, `buildingid`) VALUES ('200', '1');
+INSERT INTO `springbootweb122021`.`rentarea` (`value`, `buildingid`) VALUES ('300', '1');
+
+INSERT INTO `springbootweb122021`.`customer` (`email`, `name`, `phone`) VALUES ('abc@gmai.com', 'Tô Quốc Bão', '123456789');
+INSERT INTO `springbootweb122021`.`transaction` (`code`, `note`, `customer_id`) VALUES ('QUA_TRINH_CSKH', 'chăm sóc khác hàng', '1');
+
+
 INSERT INTO `springbootweb122021`.`assignmentbuilding` (`building_id`, `staff_id`) VALUES ('1', '2');
 INSERT INTO `springbootweb122021`.`assignmentbuilding` (`building_id`, `staff_id`) VALUES ('1', '3');
 INSERT INTO `springbootweb122021`.`assignmentbuilding` (`building_id`, `staff_id`) VALUES ('3', '2');

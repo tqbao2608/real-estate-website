@@ -1,7 +1,7 @@
 package com.laptrinhjavaweb.api.admin;
 
 import com.laptrinhjavaweb.dto.request.BuildingRequestDTO;
-import com.laptrinhjavaweb.dto.response.BuildingManagerResponseDTO;
+import com.laptrinhjavaweb.dto.response.UserResponseDTO;
 import com.laptrinhjavaweb.dto.response.BuildingResponseDTO;
 import com.laptrinhjavaweb.service.IBuildingService;
 import com.laptrinhjavaweb.service.IUserService;
@@ -40,7 +40,7 @@ public class BuildingAPI {
     }
 
     @GetMapping("/{buildingId}/staffs")
-    public ResponseEntity<List<BuildingManagerResponseDTO>> getStaffs(@PathVariable("buildingId") Long id){
+    public ResponseEntity<List<UserResponseDTO>> getStaffs(@PathVariable("buildingId") Long id){
 
         return ResponseEntity.ok(userService.findStaffByBuildingId(id));
     }

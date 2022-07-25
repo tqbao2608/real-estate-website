@@ -1,9 +1,11 @@
 package com.laptrinhjavaweb.dto.request;
 
+import com.laptrinhjavaweb.dto.AbstractDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildingSearchDTO {
+public class BuildingSearchDTO extends AbstractDTO<BuildingSearchDTO> {
     private String name;
     private String district;
     private Integer floorArea;

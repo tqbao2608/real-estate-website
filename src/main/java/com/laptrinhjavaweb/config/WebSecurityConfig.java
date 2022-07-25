@@ -4,6 +4,7 @@ import com.laptrinhjavaweb.security.CustomSuccessHandler;
 import com.laptrinhjavaweb.service.impl.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,7 +45,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
                 http.csrf().disable()
                 .authorizeRequests()
-                        .antMatchers("/admin/**").hasRole("ADMIN")
+                        .antMatchers("/admin/home").authenticated()
+                        .antMatchers("/customer/home").authenticated()
+                        .antMatchers("/admin/building-list").authenticated()
+                        .antMatchers("/admin/building-update").hasAnyRole("ADMIN","USER")
+                        .antMatchers("/admin/customer-update").hasAnyRole("ADMIN","USER")
+                        .antMatchers("/admin/building-insert").hasRole("ADMIN")
+                        .antMatchers("/admin/customer-insert").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.POST,"/api/building/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PUT,"/api/building/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.DELETE,"/api/building").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET,"/api/building/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET,"/api/customer/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.POST,"/api/customer/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.POST,"/api/customer").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PUT,"/api/customer/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.DELETE,"/api/customer").hasRole("ADMIN")
                         .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("j_username").passwordParameter("j_password").permitAll()

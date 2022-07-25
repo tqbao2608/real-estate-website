@@ -1,8 +1,10 @@
 package com.laptrinhjavaweb.controller.web;
 
 import com.laptrinhjavaweb.dto.request.BuildingSearchDTO;
+import com.laptrinhjavaweb.dto.request.CustomerRequestDTO;
 import com.laptrinhjavaweb.security.utils.SecurityUtils;
 import com.laptrinhjavaweb.service.IBuildingService;
+import com.laptrinhjavaweb.service.ICustomerService;
 import com.laptrinhjavaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,7 +27,7 @@ public class HomeController {
 	private IBuildingService buildingService;
 
 	@Autowired
-	private IUserService userService;
+	private ICustomerService customerService;
 
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage(@ModelAttribute("modelSearch") BuildingSearchDTO buildingDTO, HttpServletRequest request) {
@@ -34,9 +36,7 @@ public class HomeController {
 		Long staffId = SecurityUtils.getPrincipal().getId();
 		buildingDTO.setStaffId(staffId);
 		mav.addObject("model",buildingService.findBuilding(buildingDTO));
-		mav.addObject("district", buildingService.getDistrictEnum());
-		mav.addObject("typebuilding", buildingService.getTypeBuildingEnum());
-		mav.addObject("staffmaps",userService.getStaffMaps());
+		mav.addObject("customerModel", customerService.findCustomerByUserId(staffId));
 		return mav;
 	}
 

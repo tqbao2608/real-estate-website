@@ -27,5 +27,14 @@ public class SystemConstant {
     public static final String COLUMN_DISTRICT_CODE = "d.code";
     public static final String COMMA = ", ";
     public static final String CHECKED = "checked";
+    public static final int ACTIVE_STATUS = 1;
+    public static final int INACTIVE_STATUS = 0;
+    public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 3600000;//1h
+    public static final String SIGNING_KEY = "laptrinhjavaweb";
+    public static final String TOKEN_PREFIX = "Bearer";
+    public static final String HEADER_STRING = "Authorization";
+    public static final String AUTHORITIES_KEY = "scopes";
+
+
 
 }

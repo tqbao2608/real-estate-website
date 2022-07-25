@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class BuildingConverter {
@@ -48,7 +49,7 @@ public class BuildingConverter {
         String types = String.join(SystemConstant.COMMA, dto.getTypes());
         result.setType(types);
         List<RentAreaEntity> entity = new ArrayList<>();
-        String[] list = dto.getAreaRent().replaceAll(" ","").split(SystemConstant.COMMA);
+        String[] list = dto.getAreaRent().split(SystemConstant.COMMA);
         if (!list.toString().isEmpty()){
             for (String item: list) {
                 if (item.length() > 0){

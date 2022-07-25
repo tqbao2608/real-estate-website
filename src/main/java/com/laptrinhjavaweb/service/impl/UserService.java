@@ -4,12 +4,14 @@ import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.converter.UserConverter;
 import com.laptrinhjavaweb.dto.PasswordDTO;
 import com.laptrinhjavaweb.dto.UserDTO;
-import com.laptrinhjavaweb.dto.response.BuildingManagerResponseDTO;
+import com.laptrinhjavaweb.dto.response.UserResponseDTO;
 import com.laptrinhjavaweb.entity.BuildingEntity;
+import com.laptrinhjavaweb.entity.CustomerEntity;
 import com.laptrinhjavaweb.entity.RoleEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
 import com.laptrinhjavaweb.exception.MyException;
 import com.laptrinhjavaweb.repository.BuildingRepository;
+import com.laptrinhjavaweb.repository.CustomerRepository;
 import com.laptrinhjavaweb.repository.RoleRepository;
 import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.repository.custom.UserRepositoryCustom;
@@ -45,10 +47,10 @@ public class UserService implements IUserService {
     private UserConverter userConverter;
 
     @Autowired
-    private UserRepositoryCustom userRepositoryCustom;
+    private BuildingRepository buildingRepository;
 
     @Autowired
-    private BuildingRepository buildingRepository;
+    private CustomerRepository customerRepository;
 
     @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {
@@ -175,13 +177,23 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<BuildingManagerResponseDTO> findStaffByBuildingId(long id) {
-        List<BuildingManagerResponseDTO> results = new ArrayList<>();
+    public List<UserResponseDTO> findStaffByBuildingId(long id) {
+        List<UserResponseDTO> results = new ArrayList<>();
         List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1,"USER");
         BuildingEntity buildingEntity = buildingRepository.findById(id);
         for (UserEntity item : userEntities) {
             results.add(userConverter.convertToDto(buildingEntity, item));
         }
+        return results;
+    }
+
+    @Override
+    public List<UserResponseDTO> findStaffByCustomerId(long id) {
+        List<UserResponseDTO> results = new ArrayList<>();
+        List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1,"USER");
+        CustomerEntity customerEntity = customerRepository.findById(id);
+        userEntities.forEach(item-> results.add(userConverter.convertToDto(customerEntity,item)));
+
         return results;
     }
 

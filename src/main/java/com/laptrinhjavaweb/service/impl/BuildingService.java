@@ -3,6 +3,7 @@ package com.laptrinhjavaweb.service.impl;
 import com.laptrinhjavaweb.builder.BuildingSearch;
 import com.laptrinhjavaweb.buildingenum.DistrictEnum;
 import com.laptrinhjavaweb.buildingenum.TypeBuildingEnum;
+import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.converter.BuildingConverter;
 import com.laptrinhjavaweb.dto.request.BuildingRequestDTO;
 import com.laptrinhjavaweb.dto.request.BuildingSearchDTO;
@@ -13,8 +14,11 @@ import com.laptrinhjavaweb.repository.BuildingRepository;
 import com.laptrinhjavaweb.repository.RentAreaRepository;
 import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.repository.custom.BuildingRepositoryCustom;
+import com.laptrinhjavaweb.security.utils.SecurityUtils;
 import com.laptrinhjavaweb.service.IBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +34,6 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private BuildingConverter buildingConverter;
-
-    @Autowired
-    private RentAreaRepository rentAreaRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -77,6 +78,9 @@ public class BuildingService implements IBuildingService {
     @Override
     public List<BuildingResponseDTO> findBuilding(BuildingSearchDTO dto) {
         List<BuildingResponseDTO>  result = new ArrayList<>();
+        if (!SecurityUtils.getAuthorities().contains(SystemConstant.ADMIN_ROLE) && dto.getStaffId() != null){
+            dto.setStaffId(SecurityUtils.getPrincipal().getId());
+        }
         List<BuildingEntity> buildingEntities = buildingRepositoryCustom.findBuildingByBuilder(convertDtoToBuilder(dto));
         for (BuildingEntity item: buildingEntities) {
 
@@ -127,6 +131,13 @@ public class BuildingService implements IBuildingService {
             buildingFound.setUserEntities(userFound);
         }
         buildingRepository.save(buildingFound);
+    }
+
+    @Override
+    public List<BuildingResponseDTO> getBuilding(String reseachValue, Pageable pageable) {
+        Page<BuildingEntity> page = null;
+
+        return null;
     }
 
     private void convertObjectToMap(Map<String, Object> objectMap, List<String> list, BuildingSearchDTO dto) {

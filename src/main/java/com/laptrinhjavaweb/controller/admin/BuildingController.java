@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.controller.admin;
 
 import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.dto.request.BuildingSearchDTO;
+import com.laptrinhjavaweb.security.utils.SecurityUtils;
 import com.laptrinhjavaweb.service.IBuildingService;
 import com.laptrinhjavaweb.service.IUserService;
 import com.laptrinhjavaweb.utils.MessageUtils;
@@ -31,7 +32,7 @@ public class BuildingController {
 
     @RequestMapping(value = "/admin/building-list", method = RequestMethod.GET)
     public ModelAndView buildingList(@ModelAttribute("modelSearch") BuildingSearchDTO buildingDTO,HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("admin/building-list");
+        ModelAndView mav = new ModelAndView("admin/building/building-list");
         initMessageResponse(mav, request);
         mav.addObject("model",buildingService.findBuilding(buildingDTO));
         mav.addObject("district", buildingService.getDistrictEnum());
@@ -42,7 +43,7 @@ public class BuildingController {
 
     @RequestMapping(value = "/admin/building-insert", method = RequestMethod.GET)
     public ModelAndView buildingInsert(HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("admin/building-edit");
+        ModelAndView mav = new ModelAndView("admin/building/building-edit");
         initMessageResponse(mav, request);
         mav.addObject("district", buildingService.getDistrictEnum());
         mav.addObject("typeBuilding", buildingService.getTypeBuildingEnum());
@@ -52,7 +53,7 @@ public class BuildingController {
 
     @RequestMapping(value = "/admin/building-update", method = RequestMethod.GET)
     public ModelAndView buildingEdit(@RequestParam(required = false, value = "id") Long id, HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("admin/building-edit");
+        ModelAndView mav = new ModelAndView("admin/building/building-edit");
         initMessageResponse(mav, request);
         mav.addObject("district", buildingService.getDistrictEnum());
         mav.addObject("typeBuilding", buildingService.getTypeBuildingEnum());

@@ -59,7 +59,8 @@
 	<script src="assets/js/jquery.flot.resize.min.js"></script>
 	<script src="assets/js/ace-elements.min.js"></script>
 	<script src="assets/js/ace.min.js"></script>
-
+	<script src="paging/jquery.twbsPagination.min.js"></script>
+	<script src="paging/jquery.twbsPagination.js"></script>
 	<!-- page specific plugin scripts -->
 	<script src="assets/js/jquery-ui.min.js"></script>
 
